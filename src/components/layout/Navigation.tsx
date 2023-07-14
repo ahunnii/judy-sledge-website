@@ -10,11 +10,15 @@ import {
   ChartPieIcon,
   CursorArrowRaysIcon,
   FingerPrintIcon,
+  ShoppingCartIcon,
   SquaresPlusIcon,
+  UserIcon,
+  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { Fragment, useState } from "react";
-
 const products = [
   {
     name: "Analytics",
@@ -58,7 +62,7 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const { data: sessionData } = useSession();
   return (
     <header className="bg-white">
       <nav
@@ -66,13 +70,9 @@ export default function Navigation() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
+          <a href="#" className="-m-1.5 ">
+            <span className="sr-only">Judy Sledge</span>
+            <img className="h-12 w-auto" src="/sledge_logo.png" alt="" />
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -88,7 +88,7 @@ export default function Navigation() {
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-              Product
+              Products
               <ChevronDownIcon
                 className="h-5 w-5 flex-none text-gray-400"
                 aria-hidden="true"
@@ -150,19 +150,46 @@ export default function Navigation() {
           </Popover>
 
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Features
+            Gallery
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Marketplace
+            Contact Us
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Company
+            Blog
           </a>
+          <Link
+            href="/about-us"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            About Us
+          </Link>
         </Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
+        <div className="hidden gap-x-5 lg:flex lg:flex-1 lg:justify-end">
+          <a
+            href="#"
+            className="text-sm font-semibold leading-6 text-gray-900"
+            aria-label="Shopping Cart"
+          >
+            <ShoppingCartIcon className="h-5 w-5" />
           </a>
+          {!sessionData && (
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          )}
+          {sessionData && (
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-gray-900"
+              aria-label="User Profile"
+            >
+              <UserIcon className="h-5 w-5" />
+            </a>
+          )}
         </div>
       </nav>
       <Dialog
@@ -198,7 +225,7 @@ export default function Navigation() {
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                        Product
+                        Products
                         <ChevronDownIcon
                           className={classNames(
                             open ? "rotate-180" : "",
@@ -222,23 +249,29 @@ export default function Navigation() {
                     </>
                   )}
                 </Disclosure>
+                <Link
+                  href="#"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Gallery
+                </Link>
                 <a
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Features
+                  Contact Us
                 </a>
+                <Link
+                  href="/about-us"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  About Us
+                </Link>
                 <a
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Company
+                  Blog
                 </a>
               </div>
               <div className="py-6">
