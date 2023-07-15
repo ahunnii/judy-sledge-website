@@ -17,43 +17,28 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 const products = [
   {
-    name: "Analytics",
+    name: "Felt Clothing",
     description: "Get a better understanding of your traffic",
     href: "#",
     icon: ChartPieIcon,
   },
   {
-    name: "Engagement",
+    name: "Art",
     description: "Speak directly to your customers",
     href: "#",
     icon: CursorArrowRaysIcon,
   },
   {
-    name: "Security",
+    name: "Home Decor",
     description: "Your customers’ data will be safe and secure",
     href: "#",
     icon: FingerPrintIcon,
   },
-  {
-    name: "Integrations",
-    description: "Connect with third-party tools",
-    href: "#",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "Automations",
-    description: "Build strategic funnels that will convert",
-    href: "#",
-    icon: ArrowPathIcon,
-  },
-];
-const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 
 function classNames(...classes) {
@@ -69,11 +54,17 @@ export default function Navigation() {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 ">
+        <div className="flex ">
+          <Link href="/" className="-m-1.5 ">
             <span className="sr-only">Judy Sledge</span>
-            <img className="h-12 w-auto" src="/sledge_logo.png" alt="" />
-          </a>
+            <Image
+              className="h-12 w-auto"
+              src="/sledge_logo.png"
+              alt=""
+              height={48}
+              width={68}
+            />
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -85,7 +76,7 @@ export default function Navigation() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
+        <Popover.Group className="hidden justify-end lg:flex lg:flex-1 lg:gap-x-12">
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
               Products
@@ -130,39 +121,32 @@ export default function Navigation() {
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
               </Popover.Panel>
             </Transition>
           </Popover>
-
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Gallery
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Contact Us
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link
+            href="/blog"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Blog
-          </a>
+          </Link>{" "}
+          <Link
+            href="/gallery"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            Gallery
+          </Link>
           <Link
             href="/about-us"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             About Us
+          </Link>{" "}
+          <Link
+            href="/contact"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            Contact Us
           </Link>
         </Popover.Group>
         <div className="hidden gap-x-5 lg:flex lg:flex-1 lg:justify-end">
@@ -235,7 +219,7 @@ export default function Navigation() {
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...products, ...callsToAction].map((item) => (
+                        {[...products].map((item) => (
                           <Disclosure.Button
                             key={item.name}
                             as="a"
@@ -250,16 +234,16 @@ export default function Navigation() {
                   )}
                 </Disclosure>
                 <Link
-                  href="#"
+                  href="/blog"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Blog
+                </Link>
+                <a
+                  href="/gallery"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Gallery
-                </Link>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Contact Us
                 </a>
                 <Link
                   href="/about-us"
@@ -268,10 +252,10 @@ export default function Navigation() {
                   About Us
                 </Link>
                 <a
-                  href="#"
+                  href="/contact"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Blog
+                  Contact Us
                 </a>
               </div>
               <div className="py-6">

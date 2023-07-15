@@ -1,16 +1,11 @@
-import {
-  ArrowDownRightIcon,
-  ArrowRightIcon,
-  ArrowUpRightIcon,
-  PlusCircleIcon,
-} from "@heroicons/react/20/solid";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { ArrowUpRightIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
+
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
-import Debug from "~/components/Debug";
+import Featured from "~/components/Homepage/Featured";
+import Hero from "~/components/Homepage/Hero";
+
 import Body from "~/components/layout/Body";
-import { api } from "~/utils/api";
 
 export default function Home() {
   return (
@@ -21,322 +16,39 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <div className="mx-auto flex  w-full max-w-6xl justify-between gap-x-11 py-28">
-          <div className=" w-3/5 ">
-            <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-              Judy <span className="text-[hsl(280,100%,70%)]">Sledge</span>{" "}
-              Designs
-            </h1>
-
-            <p className="my-5 py-5 text-lg font-light  text-white">
-              Lorem excepteur enim enim eu minim amet. Dolor consectetur
-              proident occaecat id sunt ex ex eu. Amet esse ipsum irure eu
-              mollit dolor sit quis. Sit cupidatat quis et anim mollit sint. Et
-              veniam consectetur Lorem tempor tempor id reprehenderit irure
-              adipisicing veniam irure eiusmod dolore.
-            </p>
-
-            <button className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20">
-              Shop Now
-            </button>
-          </div>
-
-          <div className=" relative aspect-square w-2/5 ">
-            <Image
-              layout="fill"
-              src="/images/hero.png"
-              alt="hero"
-              objectFit="cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="rounded"
-            />
-          </div>
-        </div>{" "}
-        <div className="mx-auto flex  w-full max-w-6xl justify-between gap-x-11 pb-48 pt-24">
-          <div className=" w-full ">
-            <h2 className=" text-5xl font-semibold text-white">
+        <Hero />
+        <div className="mx-auto flex w-full  justify-between gap-x-11 bg-primary/5 pb-48 pt-24">
+          <div className=" mx-auto flex h-96 w-full max-w-6xl flex-col justify-center">
+            <h2 className=" text-6xl font-bold text-primary">
               A Style For Every Occasion,{" "}
-              <span className="   text-[hsl(280,100%,70%)]">Express</span>{" "}
-              Yourself.
+              <span className="text-accent">Express</span> Yourself.
             </h2>
-            <h3 className="my-3 py-5 text-2xl font-normal text-white">
+            <h3 className="my-3 py-5 text-2xl font-normal text-default">
               Lorem excepteur enim enim eu minim amet. Dolor consectetur
               proident occaecat id sunt ex ex eu. Amet esse ipsum irure eu
               mollit dolor sit quis. Sit cupidatat quis et anim mollit sint.
+              Anim duis dolore irure veniam culpa consequat cillum fugiat.
+              Proident mollit dolor adipisicing nostrud dolore ullamco aliqua
+              dolore.
             </h3>
-            <button className="border-b-2  border-transparent text-2xl font-bold text-[hsl(280,100%,80%)] transition ease-linear hover:border-b-[hsl(280,100%,80%)]">
+            <button className="w-fit  border-b-2 border-transparent text-left text-2xl font-bold text-accent/75 transition ease-linear hover:border-b-accent">
               Check Out The Collections →
             </button>
           </div>
         </div>
-        <div className="mx-auto flex w-full flex-col justify-between gap-x-11  ">
-          <div className="mx-auto flex w-full max-w-6xl  flex-col justify-between gap-x-11 ">
-            <div className="relative z-0 grid grid-flow-col grid-cols-3 grid-rows-2 gap-8">
-              <div className="absolute left-1/2 top-1/2 z-10 w-full">
-                <div className="w-1/2 bg-[hsl(265,96%,55%)] px-2 py-5">
-                  <h2 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-                    Products
-                  </h2>
-
-                  <button className="border-b-2  border-transparent text-2xl font-bold text-[hsl(280,100%,80%)] transition ease-linear hover:border-b-[hsl(280,100%,80%)]">
-                    View All →
-                  </button>
-                </div>
-              </div>
-              <div className="-rotate-6 scale-110 transform">
-                <img
-                  src="/images/hero.png"
-                  alt=""
-                  loading="lazy"
-                  className="aspect-square rounded-xl object-cover shadow"
-                />
-              </div>
-              <div className="translate-y-15 col-start-3 translate-x-2 rotate-6 scale-75 transform">
-                <img
-                  src="/images/hero.png"
-                  alt=""
-                  loading="lazy"
-                  className="aspect-square rounded-xl object-cover shadow"
-                />
-              </div>
-
-              <div className="translate-y-11 scale-150 transform">
-                <img
-                  src="/images/hero.png"
-                  alt=""
-                  loading="lazy"
-                  className="aspect-video rounded-xl object-cover shadow"
-                />
-              </div>
-              <div className="translate-y-24 transform">
-                <img
-                  src="/images/hero.png"
-                  alt=""
-                  loading="lazy"
-                  className="aspect-sqquare rounded-xl object-cover shadow"
-                />
-              </div>
-              <div className="col-span-2 col-start-2 row-start-1 translate-x-20 translate-y-4 transform">
-                <img
-                  src="/images/hero.png"
-                  alt=""
-                  loading="lazy"
-                  className="aspect-video rounded-xl object-cover shadow"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="mx-auto mt-28 flex w-full  max-w-6xl flex-col justify-between gap-x-11">
-            <div className="flex  flex-col">
-              <h3 className="text-xl font-extrabold tracking-tight text-[hsl(280,100%,70%)]  ">
-                Featured
-              </h3>
-              <h2 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-                Bestsellers
-              </h2>
-            </div>
-
-            <div className="my-5 flex gap-x-11">
-              {" "}
-              <div className="w-1/4">
-                <div className="relative aspect-[9/12] ">
-                  <Image
-                    layout="fill"
-                    src="/images/hero.png"
-                    alt="hero"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded"
-                  />
-                  <button className="absolute bottom-0 right-0 p-4  font-extrabold tracking-tight text-white  transition hover:text-[hsl(280,100%,70%)]/75">
-                    <PlusCircleIcon className="h-10 w-10" />
-                  </button>
-                </div>
-                <div className="flex w-full items-center">
-                  <div className="w-4/5">
-                    <h4 className="relative text-2xl font-light tracking-tight text-white ">
-                      Dress
-                    </h4>
-                    <h4 className="relative  text-3xl font-semibold tracking-tight text-white ">
-                      Lorem Ipsum
-                    </h4>
-                  </div>
-
-                  <p className="w-1/5 text-4xl font-bold text-[hsl(280,100%,70%)]">
-                    $34
-                  </p>
-                </div>
-              </div>{" "}
-              <div className="w-1/4">
-                <div className="relative aspect-[9/12] ">
-                  <Image
-                    layout="fill"
-                    src="/images/hero.png"
-                    alt="hero"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded"
-                  />
-                  <button className="absolute bottom-0 right-0 p-4  font-extrabold tracking-tight text-white  transition hover:text-[hsl(280,100%,70%)]/75">
-                    <PlusCircleIcon className="h-10 w-10" />
-                  </button>
-                </div>
-                <div className="flex w-full items-center">
-                  <div className="w-4/5">
-                    <h4 className="relative text-2xl font-light tracking-tight text-white ">
-                      Dress
-                    </h4>
-                    <h4 className="relative  text-3xl font-semibold tracking-tight text-white ">
-                      Lorem Ipsum
-                    </h4>
-                  </div>
-
-                  <p className="w-1/5 text-4xl font-bold text-[hsl(280,100%,70%)]">
-                    $34
-                  </p>
-                </div>
-              </div>
-              <div className="w-1/4">
-                <div className="relative aspect-[9/12] ">
-                  <Image
-                    layout="fill"
-                    src="/images/hero.png"
-                    alt="hero"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded"
-                  />
-                  <button className="absolute bottom-0 right-0 p-4  font-extrabold tracking-tight text-white  transition hover:text-[hsl(280,100%,70%)]/75">
-                    <PlusCircleIcon className="h-10 w-10" />
-                  </button>
-                </div>
-                <div className="flex w-full items-center">
-                  <div className="w-4/5">
-                    <h4 className="relative text-2xl font-light tracking-tight text-white ">
-                      Dress
-                    </h4>
-                    <h4 className="relative  text-3xl font-semibold tracking-tight text-white ">
-                      Lorem Ipsum
-                    </h4>
-                  </div>
-
-                  <p className="w-1/5 text-4xl font-bold text-[hsl(280,100%,70%)]">
-                    $34
-                  </p>
-                </div>
-              </div>
-              <div className="w-1/4">
-                <div className="relative aspect-[9/12] ">
-                  <Image
-                    layout="fill"
-                    src="/images/hero.png"
-                    alt="hero"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded"
-                  />
-                  <button className="absolute bottom-0 right-0 p-4  font-extrabold tracking-tight text-white  transition hover:text-[hsl(280,100%,70%)]/75">
-                    <PlusCircleIcon className="h-10 w-10" />
-                  </button>
-                </div>
-                <div className="flex w-full items-center">
-                  <div className="w-4/5">
-                    <h4 className="relative text-2xl font-light tracking-tight text-white ">
-                      Dress
-                    </h4>
-                    <h4 className="relative  text-3xl font-semibold tracking-tight text-white ">
-                      Lorem Ipsum
-                    </h4>
-                  </div>
-
-                  <p className="w-1/5 text-4xl font-bold text-[hsl(280,100%,70%)]">
-                    $34
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="mx-auto  mt-28 flex w-full  max-w-6xl flex-col justify-between gap-x-11">
-            <div className="flex  flex-col">
-              <h3 className="text-xl font-extrabold tracking-tight text-[hsl(280,100%,70%)]  ">
-                Collections
-              </h3>
-              <h2 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-                Featured Collections
-              </h2>
-            </div>
-
-            <div className="my-5 grid grid-cols-2 gap-4">
-              {" "}
-              <div className="col-span-1 ">
-                <div className="relative aspect-[9/12] ">
-                  <Image
-                    layout="fill"
-                    src="/images/hero.png"
-                    alt="hero"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded"
-                  />
-                  <button className="absolute bottom-0 right-0 m-4 rounded-full bg-white p-4 font-extrabold tracking-tight  text-[hsl(280,100%,70%)] text-transparent  transition hover:text-[hsl(280,100%,70%)]/75">
-                    <ArrowUpRightIcon className=" h-12 w-12 text-[hsl(280,100%,70%)]" />
-                  </button>
-
-                  <h3 className="absolute left-0 top-0 p-4  text-6xl font-bold tracking-tight text-white">
-                    Lorem Ipsum
-                  </h3>
-                </div>
-              </div>{" "}
-              <div className="col-span-1 grid grid-rows-2 gap-4 ">
-                <div className="relative row-span-1 ">
-                  <Image
-                    layout="fill"
-                    src="/images/hero.png"
-                    alt="hero"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded"
-                  />
-                  <button className="absolute right-0  top-0 m-4 rounded-full bg-white p-4 font-extrabold tracking-tight  text-[hsl(280,100%,70%)] text-transparent  transition hover:text-[hsl(280,100%,70%)]/75">
-                    <ArrowUpRightIcon className="h-12 w-12 text-[hsl(280,100%,70%)]" />
-                  </button>{" "}
-                  <h3 className="absolute bottom-0 left-0 p-4  text-6xl font-bold tracking-tight text-white">
-                    Lorem Ipsum
-                  </h3>
-                </div>
-
-                <div className="relative row-span-1 ">
-                  <Image
-                    layout="fill"
-                    src="/images/hero.png"
-                    alt="hero"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded"
-                  />
-                  <button className="absolute right-0  top-0 m-4 rounded-full bg-white p-4 font-extrabold tracking-tight  text-[hsl(280,100%,70%)] text-transparent  transition hover:text-[hsl(280,100%,70%)]/75">
-                    <ArrowUpRightIcon className="h-12 w-12 text-[hsl(280,100%,70%)]" />
-                  </button>{" "}
-                  <h3 className="absolute bottom-0 right-0 p-4  text-6xl font-bold tracking-tight text-white">
-                    Lorem Ipsum
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Featured />
         <div className="mx-auto flex w-full max-w-6xl flex-col justify-between gap-x-11 py-28">
           <div className="mb-10 flex flex-row items-center">
             <div className="flex w-2/5 flex-col">
-              <h3 className="text-xl font-extrabold tracking-tight text-[hsl(280,100%,70%)]  ">
+              <h3 className="text-xl font-extrabold tracking-tight text-accent  ">
                 About
               </h3>
-              <h2 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+              <h2 className="text-5xl font-extrabold tracking-tight text-primary sm:text-[5rem]">
                 Nice to Meet You
               </h2>
             </div>
             <div className="w-3/5">
-              <p className="py-5 text-lg text-white">
+              <p className="py-5 text-lg text-primary">
                 Lorem excepteur enim enim eu minim amet. Dolor consectetur
                 proident occaecat id sunt ex ex eu. Amet esse ipsum irure eu
                 mollit dolor sit quis. Sit cupidatat quis et anim mollit sint.
@@ -348,7 +60,7 @@ export default function Home() {
           <div className=" relative aspect-video w-full">
             <Image
               layout="fill"
-              src="/images/hero.png"
+              src="/images/about_stock.png"
               alt="hero"
               objectFit="cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -356,37 +68,31 @@ export default function Home() {
             />
           </div>
         </div>{" "}
-        <div className="mx-auto flex w-full max-w-6xl flex-row items-stretch    justify-between gap-12  px-4 py-16">
-          {/* Random logo image  */}
+        <div className="mx-auto flex w-full max-w-6xl flex-row items-center  justify-between  gap-12 px-4 pb-16">
+          <div className=" relative aspect-video w-2/6">
+            <Image
+              layout="fill"
+              src="/sledge_logo.png"
+              alt="hero"
+              objectFit="contain"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="rounded"
+            />
+          </div>{" "}
+          <div className="w-4/6">
+            <p>
+              Duis duis do nulla sunt dolore non aute esse pariatur commodo id.
+              Amet duis aute cillum id eiusmod reprehenderit. Sunt voluptate
+              proident cillum voluptate nisi sunt velit veniam mollit. In
+              officia eiusmod laborum ea labore aute deserunt aliqua commodo
+              deserunt laboris aliqua. Nostrud qui voluptate velit labore
+              nostrud est esse Lorem velit magna. Sint nulla consequat enim
+              excepteur excepteur aliquip culpa sit tempor fugiat aute
+              cupidatat.
+            </p>
+          </div>
         </div>
       </Body>
     </>
-  );
-}
-
-function AuthShowcase() {
-  const { data: sessionData } = useSession();
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
-  return (
-    <div className="flex">
-      <p className="text-2xl text-white">
-        {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-      </p>
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
   );
 }
