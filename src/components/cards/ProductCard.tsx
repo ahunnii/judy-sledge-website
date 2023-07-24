@@ -10,8 +10,8 @@ interface IProps {
 }
 const ProductCard: FC<IProps> = ({ title, price, image, category }) => {
   return (
-    <>
-      <div className="relative aspect-[9/12] ">
+    <div>
+      <div className="relative flex aspect-[9/12] ">
         <Image
           layout="fill"
           src={image}
@@ -25,19 +25,19 @@ const ProductCard: FC<IProps> = ({ title, price, image, category }) => {
           <PlusCircleIcon className="absolute left-0 top-0 h-10 w-10" />
         </button>
       </div>
-      <div className="flex w-full items-center">
+      <div className="flex w-full items-center ">
         <div className="w-4/5">
           <h4 className="relative text-2xl font-light capitalize tracking-tight text-default">
             {category}
           </h4>
-          <h4 className="relative  text-3xl font-semibold capitalize tracking-tight text-default">
+          <h4 className="relative  text-3xl font-semibold capitalize tracking-tight text-default ">
             {title}
           </h4>
         </div>
 
-        <p className="w-1/5 text-4xl font-bold text-accent">${price}</p>
+        <p className="w-1/5 text-3xl font-bold text-accent">${price}</p>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -18,6 +18,10 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  images: {
+    domains: ["files.stripe.com"],
+  },
 };
 
 export default config;

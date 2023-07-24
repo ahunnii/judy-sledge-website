@@ -1,13 +1,36 @@
-import { ArrowUpRightIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
-
 import Head from "next/head";
 import Image from "next/image";
+import type { FC } from "react";
+
+import type Stripe from "stripe";
 import Featured from "~/components/Homepage/Featured";
 import Hero from "~/components/Homepage/Hero";
 
 import Body from "~/components/layout/Body";
+import { stripe } from "~/server/stripe/client";
 
-export default function Home() {
+// Server side props
+export async function getServerSideProps() {
+  const res = await stripe.prices.list({
+    expand: ["data.product"],
+  });
+  const prices: Stripe.Price[] = res.data;
+
+  const products = prices.filter(
+    (price: Stripe.Price) => price.type === "one_time"
+  );
+  return {
+    props: {
+      prices: products.slice(0, 4),
+    },
+  };
+}
+
+interface IProps {
+  prices: Stripe.Price[];
+}
+
+const Home: FC<IProps> = ({ prices }) => {
   return (
     <>
       <Head>
@@ -36,7 +59,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <Featured />
+        <Featured items={prices} />
         <div className="mx-auto flex w-full max-w-6xl flex-col justify-between gap-x-11 py-28">
           <div className="mb-10 flex flex-row items-center">
             <div className="flex w-2/5 flex-col">
@@ -95,4 +118,5 @@ export default function Home() {
       </Body>
     </>
   );
-}
+};
+export default Home;

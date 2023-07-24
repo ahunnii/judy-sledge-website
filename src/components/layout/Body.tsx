@@ -6,9 +6,7 @@ interface IProps {
 
 const Body: FC<IProps> = ({ children }) => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      {children}
-    </main>
+    <main className="flex min-h-screen flex-col items-center ">{children}</main>
   );
 };
 

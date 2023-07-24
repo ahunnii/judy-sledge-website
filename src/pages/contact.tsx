@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+
 import Body from "~/components/layout/Body";
 
 export default function Contact() {

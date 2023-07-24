@@ -1,25 +1,20 @@
+/* eslint-disable @next/next/no-img-element */
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/20/solid";
-import {
-  ArrowPathIcon,
   Bars3Icon,
   ChartPieIcon,
   CursorArrowRaysIcon,
   FingerPrintIcon,
   ShoppingCartIcon,
-  SquaresPlusIcon,
   UserIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useState } from "react";
+import { classNames } from "~/utils/styles";
 const products = [
   {
     name: "Felt Clothing",
@@ -39,11 +34,13 @@ const products = [
     href: "#",
     icon: FingerPrintIcon,
   },
+  {
+    name: "All",
+    description: "See all the products we have to offer",
+    href: "/products",
+    icon: FingerPrintIcon,
+  },
 ];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -158,12 +155,12 @@ export default function Navigation() {
             <ShoppingCartIcon className="h-5 w-5" />
           </a>
           {!sessionData && (
-            <a
-              href="#"
+            <button
+              onClick={() => signIn()}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            </button>
           )}
           {sessionData && (
             <a
@@ -239,32 +236,32 @@ export default function Navigation() {
                 >
                   Blog
                 </Link>
-                <a
+                <Link
                   href="/gallery"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Gallery
-                </a>
+                </Link>
                 <Link
                   href="/about-us"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   About Us
                 </Link>
-                <a
+                <Link
                   href="/contact"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Contact Us
-                </a>
+                </Link>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
+                <button
+                  onClick={() => signIn()}
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Log in
-                </a>
+                </button>
               </div>
             </div>
           </div>

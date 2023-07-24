@@ -1,9 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import { ArrowUpRightIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
+
+import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import type { FC } from "react";
+import type Stripe from "stripe";
 import ProductCard from "../cards/ProductCard";
 
-const Featured = () => {
+interface IProps {
+  items: Stripe.Price[];
+}
+const Featured: FC<IProps> = ({ items }) => {
   return (
     <div className="mx-auto flex w-full flex-col justify-between gap-x-11  ">
       <div className="mx-auto flex w-full max-w-6xl  flex-col justify-between gap-x-11 ">
@@ -47,6 +53,18 @@ const Featured = () => {
               sizes="100%"
             />
           </div>
+          {/* 
+          <div className="h-56 translate-y-11 scale-150 transform">
+            <Image
+              src="/images/stock_5.png"
+              alt=""
+              loading="lazy"
+              className="aspect-video rounded-xl object-cover shadow"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 23vw"
+              layout="fill"
+            />
+          </div> */}
+
           <div className="translate-y-24 transform">
             <img
               src="/images/stock_7.png"
@@ -77,8 +95,22 @@ const Featured = () => {
           </h2>
         </div>
 
-        <div className="my-5 flex gap-x-11">
-          <div className="w-1/4">
+        <div className="my-5 flex items-stretch gap-x-11">
+          {items &&
+            items.map((price: Stripe.Price, idx: number) => {
+              const product = price.product as Stripe.Product;
+              return (
+                <div className=" w-1/4 " key={idx}>
+                  <ProductCard
+                    title={product.name}
+                    price={(price?.unit_amount as number) / 100}
+                    image={product.images[0] as string}
+                    category={product.metadata.category as string}
+                  />
+                </div>
+              );
+            })}
+          {/* <div className="w-1/4">
             <ProductCard
               title="Lorem Ipsum"
               price={34}
@@ -109,7 +141,7 @@ const Featured = () => {
               image="/images/stock_8.png"
               category="Painting"
             />
-          </div>
+          </div> */}
         </div>
       </div>{" "}
       <div className="mx-auto  mt-28 flex w-full  max-w-6xl flex-col justify-between gap-x-11">
