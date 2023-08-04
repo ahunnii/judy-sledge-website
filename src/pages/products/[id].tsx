@@ -1,21 +1,20 @@
 import { RadioGroup } from "@headlessui/react";
 import { StarIcon as StarOutlineIcon } from "@heroicons/react/24/outline";
-// import { StarIcon as StarHollowIcon } from "@heroicons/react/20/outline";
+
 import { StarIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { FC, useState } from "react";
-import Stripe from "stripe";
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import type { FC } from "react";
+import { useState } from "react";
+import type Stripe from "stripe";
+import { useShoppingCart } from "use-shopping-cart";
+import { classNames } from "~/utils/styles";
 
 interface IProps {
   product: Stripe.Product;
   price: Stripe.Price;
 }
+
 const demoProducts = [
   {
     id: 1,
@@ -60,11 +59,43 @@ const demoProducts = [
   // More products...
 ];
 const Product: FC<IProps> = ({ product, price }) => {
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
   const router = useRouter();
 
-  console.log(product);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const { addItem } = useShoppingCart();
+
+  // const decreaseQuantity = () => {
+  //   if (quantity > 1) {
+  //     setQuantity(quantity - 1);
+  //   }
+  // };
+
+  // const increaseQuantity = () => {
+  //   setQuantity(quantity + 1);
+  // };
+
+  const addToCart = () => {
+    addItem(
+      {
+        id: price.id,
+        name: product.name,
+        description: product.description ?? "No description provided.",
+        price: price?.unit_amount as number,
+        currency: price.currency,
+        image: product.images[0],
+        metadata: {
+          size: selectedSize,
+        },
+      },
+      { count: quantity }
+    );
+    setQuantity(1);
+  };
+
+  console.log(product, price);
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -277,7 +308,7 @@ const Product: FC<IProps> = ({ product, price }) => {
               )}
             </section>
             <button
-              type="submit"
+              onClick={() => addToCart()}
               className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Add to bag
@@ -408,9 +439,19 @@ const getBaseUrl = () => {
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
 
-export async function getServerSideProps({ params }) {
+interface SProps {
+  params: {
+    id: string;
+  };
+}
+
+interface Response {
+  product: Stripe.Product;
+  price: Stripe.Price;
+}
+export async function getServerSideProps({ params }: SProps) {
   const res = await fetch(`${getBaseUrl()}/api/product/${params.id}`);
-  const { product, price } = await res.json();
+  const { product, price } = (await res.json()) as Response;
 
   if (!product) {
     return {

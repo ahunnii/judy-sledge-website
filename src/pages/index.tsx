@@ -11,13 +11,14 @@ import { stripe } from "~/server/stripe/client";
 
 // Server side props
 export async function getServerSideProps() {
-  const res = await stripe.prices.list({
-    expand: ["data.product"],
+  const res = await stripe.products.list({
+    expand: ["data.default_price"],
   });
-  const prices: Stripe.Price[] = res.data;
-
+  const prices: Stripe.Product[] = res.data;
+  console.log(prices);
   const products = prices.filter(
-    (price: Stripe.Price) => price.type === "one_time"
+    (price: Stripe.Product) =>
+      (price?.default_price as Stripe.Price).type === "one_time" && price.active
   );
   return {
     props: {

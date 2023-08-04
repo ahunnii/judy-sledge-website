@@ -7,7 +7,7 @@ import type Stripe from "stripe";
 import ProductCard from "../cards/ProductCard";
 
 interface IProps {
-  items: Stripe.Price[];
+  items: Stripe.Product[];
 }
 const Featured: FC<IProps> = ({ items }) => {
   return (
@@ -97,13 +97,15 @@ const Featured: FC<IProps> = ({ items }) => {
 
         <div className="my-5 flex items-stretch gap-x-11">
           {items &&
-            items.map((price: Stripe.Price, idx: number) => {
-              const product = price.product as Stripe.Product;
+            items.map((product: Stripe.Product, idx: number) => {
               return (
                 <div className=" w-1/4 " key={idx}>
                   <ProductCard
+                    id={product.id}
                     title={product.name}
-                    price={(price?.unit_amount as number) / 100}
+                    price={
+                      (product?.default_price?.unit_amount as number) / 100
+                    }
                     image={product.images[0] as string}
                     category={product.metadata.category as string}
                   />

@@ -6,7 +6,6 @@ import {
   ChartPieIcon,
   CursorArrowRaysIcon,
   FingerPrintIcon,
-  ShoppingCartIcon,
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
