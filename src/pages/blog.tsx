@@ -11,14 +11,14 @@ export default function AboutUs() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <div className="mx-auto flex  w-full max-w-6xl justify-between gap-x-11 py-28">
+        <div className="mx-auto flex  w-full max-w-6xl justify-between gap-x-5 pt-16">
           <div className="divide-y  divide-gray-700">
             <div className="space-y-2 pb-8 pt-6 md:space-y-5">
               <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight  text-primary sm:text-4xl sm:leading-10 md:text-6xl">
-                Latest
+                Blog
               </h1>
               <p className="text-lg leading-7  text-primary/50">
-                A blog created with Next.js and Tailwind.css
+                Learn about what we have been doing
               </p>
             </div>
             <ul className="divide-y  divide-gray-700">

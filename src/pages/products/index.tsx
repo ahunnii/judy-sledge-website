@@ -49,9 +49,11 @@ const Products: FC<IProps> = ({ prices }) => {
             {prices &&
               prices.map((price: Stripe.Price, idx: number) => {
                 const product = price.product as Stripe.Product;
+                console.log(product);
                 return (
                   <div className=" w-1/4 " key={idx}>
                     <ProductCard
+                      id={product.id}
                       title={product.name}
                       price={(price?.unit_amount as number) / 100}
                       image={product.images[0] as string}

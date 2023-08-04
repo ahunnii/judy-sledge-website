@@ -11,7 +11,7 @@ export default function Contact() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <div className="mx-auto flex  w-full max-w-6xl justify-between gap-x-11 ">
+        <div className="mx-auto flex  w-full max-w-6xl justify-between gap-x-5 pt-16">
           <div className="flex  w-3/5 flex-col">
             <h3 className="text-xl font-extrabold tracking-tight text-accent  ">
               Questions, Comments, Concerns?

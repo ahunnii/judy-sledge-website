@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 import { classNames } from "~/utils/styles";
+import ShoppingCart from "../ecommerce/ShoppingCart";
 const products = [
   {
     name: "Felt Clothing",
@@ -147,13 +148,7 @@ export default function Navigation() {
           </Link>
         </Popover.Group>
         <div className="hidden gap-x-5 lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="#"
-            className="text-sm font-semibold leading-6 text-gray-900"
-            aria-label="Shopping Cart"
-          >
-            <ShoppingCartIcon className="h-5 w-5" />
-          </a>
+          <ShoppingCart />
           {!sessionData && (
             <button
               onClick={() => signIn()}

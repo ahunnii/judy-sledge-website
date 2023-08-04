@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -16,9 +17,12 @@ const Hero = () => {
           eiusmod dolore.
         </p>
 
-        <button className="rounded-full bg-primary/10 px-10 py-3 font-semibold text-default no-underline transition hover:bg-primary/20">
+        <Link
+          className="rounded-full bg-primary/10 px-10 py-3 font-semibold text-default no-underline transition hover:bg-primary/20"
+          href="/products"
+        >
           Shop Now
-        </button>
+        </Link>
       </div>
 
       <div className=" relative aspect-square w-2/5 ">
